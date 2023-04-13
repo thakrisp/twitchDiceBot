@@ -1,0 +1,15 @@
+{
+  "name": "dicebot",
+  "version": "1.0.0",
+  "description": "A bot that allows users to request the number and size of dice and responds with random number(s).",
+  "main": "server.js",
+  "scripts": {
+    "bot": "npm run start"
+  },
+  "author": "Thakrisp",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "tmi.js": "^1.8.5"
+  }
+}
