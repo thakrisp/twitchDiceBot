@@ -23,14 +23,21 @@ client.connect();
 
 // Called every time a message comes in
 function onMessageHandler(target, context, msg, self) {
-  if (self || !msg.startsWith("!d")) {
+  if (self) return; // Ignore messages from the bot
+
+  if (msg.startsWith("!roll")) {
+    client.say(
+      target,
+      "To roll your dice follow the structure !d #Dice #Sides eg. !d 2 20 or !d 20 for a single dice."
+    );
     return;
-  } // Ignore messages from the bot
+  }
 
-  if (self && !msg.startsWith("!d")) return;
-
-  let responeMessage = dice.readMessage(msg);
-  client.reply(target, `@${context["display-name"]} rolled ${responeMessage}`);
+  if (msg.startsWith("!d")) {
+    let responeMessage = dice.readMessage(msg);
+    client.say(target, `@${context["display-name"]} rolled ${responeMessage}`);
+    return;
+  }
 }
 
 // Called every time the bot connects to Twitch chat
