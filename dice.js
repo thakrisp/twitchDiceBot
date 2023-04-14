@@ -1,5 +1,5 @@
 let readMessage = (message) => {
-  if (!message.includes("!") || !message.startsWith("!d")) {
+  if (!message.includes("!")) {
     return;
   }
 
@@ -7,7 +7,11 @@ let readMessage = (message) => {
 
   arguments = message.split(" ");
   arguments.shift();
-  arguments.map((e) => +e);
+  arguments.forEach((e, i) => (arguments[i] = e.split("d")));
+  arguments = arguments.flat();
+  arguments = arguments.filter((e) => e !== "");
+
+  console.log(arguments);
 
   if (arguments.length === 1) {
     return responeMessage(1, arguments[0]);
@@ -41,7 +45,8 @@ let formatMessage = (rolls) => {
 
   if (rolls.length > 1) {
     for (let i = 1; i < rolls.length; i++) {
-      message += `${i === rolls.length - 1 ? " and " : ", "}${rolls[i]}`;
+      message += `${i === rolls.length - 1 ? " and " : ", "}
+      ${i === rolls.length - 1 ? "a" : ""} ${rolls[i]}`;
     }
   }
 
