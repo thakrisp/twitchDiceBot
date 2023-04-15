@@ -3,22 +3,20 @@ let readMessage = (message) => {
     return;
   }
 
-  let arguments = [];
+  let args = [];
 
-  arguments = message.split(" ");
-  arguments.shift();
-  arguments.forEach((e, i) => (arguments[i] = e.split("d")));
-  arguments = arguments.flat();
-  arguments = arguments.filter((e) => e !== "");
+  args = message.split(" ");
+  args.shift();
+  args.forEach((e, i) => (args[i] = e.split("d")));
+  args = args.flat();
+  args = args.filter((e) => e !== "");
 
-  console.log(arguments);
-
-  if (arguments.length === 1) {
-    return responeMessage(1, arguments[0]);
+  if (args.length === 1) {
+    return responeMessage(1, args[0]);
   }
 
-  if (arguments.length === 2) {
-    return responeMessage(arguments[0], arguments[1]);
+  if (args.length === 2) {
+    return responeMessage(args[0], args[1]);
   }
 
   console.error(`Invalid message: ${message}`);
@@ -26,6 +24,14 @@ let readMessage = (message) => {
 
 let responeMessage = (times, sides) => {
   let rolls = [];
+
+  if (times <= 0 || sides <= 0) {
+    return;
+  }
+
+  if (!diceSides.includes(+sides) || sides > 100) {
+    return;
+  }
 
   for (let i = 0; i < times; i++) {
     rolls.push(getRandomNumber(sides));
@@ -52,5 +58,7 @@ let formatMessage = (rolls) => {
 
   return message;
 };
+
+let diceSides = [4, 6, 8, 10, 12, 20, 100];
 
 exports.readMessage = readMessage;

@@ -28,15 +28,20 @@ function onMessageHandler(target, context, msg, self) {
   if (msg === "!roll") {
     client.say(
       target,
-      "To roll your dice follow the structure !d #Dice #Sides eg. !roll 2d20 or !roll 20 for a single dice."
+      "To roll your dice follow the structure !d #Dice #Sides eg. !roll 2d20 or !roll d20 for a single dice."
     );
     return;
   }
 
-  //(!roll) (\d)d(\d{1,3})
-  if (msg.match(/(!roll) (\d)d(\d{1,3})/) !== null) {
+  //(\d)d(\d{1,3})
+  if (msg.startsWith("!roll") && msg.match(/(\d{0,1})d(\d{1,3})/) !== null) {
     let responeMessage = dice.readMessage(msg);
-    client.say(target, `@${context["display-name"]} rolled ${responeMessage}`);
+    if (responeMessage !== undefined) {
+      client.say(
+        target,
+        `@${context["display-name"]} rolled ${responeMessage}`
+      );
+    }
     return;
   }
 }
