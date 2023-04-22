@@ -1,15 +1,7 @@
 let readMessage = (message) => {
-  if (!message.includes("!")) {
-    return;
-  }
+  console.log(message);
 
-  let args = [];
-
-  args = message.split(" ");
-  args.shift();
-  args.forEach((e, i) => (args[i] = e.split("d")));
-  args = args.flat();
-  args = args.filter((e) => e !== "");
+  let args = message.split("d").filter(e=> e !== '');
 
   if (args.length === 1) {
     return responeMessage(1, args[0]);
@@ -47,7 +39,7 @@ let responeMessage = (times, sides) => {
 let getRandomNumber = (sides) => Math.floor(Math.random() * sides) + 1;
 
 let formatMessage = (rolls) => {
-  let message = `rolled a ${rolls[0]}`;
+  let message = ` a ${rolls[0]}`;
 
   if (rolls.length > 1) {
     for (let i = 1; i < rolls.length; i++) {
@@ -62,3 +54,5 @@ let formatMessage = (rolls) => {
 let diceSides = [4, 6, 8, 10, 12, 20, 100];
 
 exports.readMessage = readMessage;
+exports.diceSides = diceSides;
+
