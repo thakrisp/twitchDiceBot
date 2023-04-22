@@ -25,23 +25,31 @@ client.connect();
 function onMessageHandler(target, context, msg, self) {
   if (self) return; // Ignore messages from the bot
 
+  msg = msg.toLowerCase();
+
   if (msg === "!roll") {
     client.say(
       target,
-      "To roll your dice follow the structure !d #Dice #Sides eg. !roll 2d20 or !roll d20 for a single dice."
+      "To roll your dice follow the structure !roll #DiceD#Sides eg. !roll 2d20 or !roll d20 for a single dice."
     );
     return;
   }
 
   //(\d)d(\d{1,3})
-  if (msg.startsWith("!roll") && msg.match(/(\d{0,1})d(\d{1,3})/) !== null) {
-    let responeMessage = dice.readMessage(msg);
-    if (responeMessage !== undefined) {
-      client.say(
-        target,
-        `@${context["display-name"]} rolled ${responeMessage}`
-      );
+  if (msg.startsWith("!roll")) {
+    if (msg.match(/ ([0-9])d(\d{1,3})/) !== null) {
+      let responeMessage = dice.readMessage(msg);
+
+      if (responeMessage !== undefined) {
+        client.say(
+          target,
+          `@${context["display-name"]} rolled ${responeMessage}`
+        );
+      }
+    } else {
+      console.error(`${context["display-name"]}: ${msg}`);
     }
+
     return;
   }
 }

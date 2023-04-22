@@ -47,7 +47,7 @@ let responeMessage = (times, sides) => {
 let getRandomNumber = (sides) => Math.floor(Math.random() * sides) + 1;
 
 let formatMessage = (rolls) => {
-  let message = `rolled a ${rolls[0]}`;
+  let message = ` a ${rolls[0]}`;
 
   if (rolls.length > 1) {
     for (let i = 1; i < rolls.length; i++) {
