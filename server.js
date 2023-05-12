@@ -25,7 +25,7 @@ client.connect();
 function onMessageHandler(target, context, msg, self) {
   if (self) return; // Ignore messages from the bot
 
-  msg = msg.toLowerCase();``
+  msg = msg.toLowerCase();
 
   if (msg === "!dice") {
     client.say(
@@ -43,21 +43,26 @@ function onMessageHandler(target, context, msg, self) {
     return;
   }
 
-  //(\d)d(\d{1,3})
-  let messageMatch = msg.match(/ ([0-9])d(\d{1,3})/);
+  if (msg.startsWith("!roll")) {
+    let messageMatch = msg.match(/\s([1-9]{0,1})d(\d{1,3})/);
 
-  if (msg.startsWith("!roll") && messageMatch !== null) {
-    let responeMessage = dice.readMessage(messageMatch[0]);
-    if (responeMessage !== undefined) {
-      client.say(
-        target,
-        `@${context["display-name"]} rolled ${responeMessage}`
-      );
+    if (messageMatch !== null) {
+      let responeMessage = dice.readMessage(messageMatch[0]);
+      console.log("server: " + responeMessage);
+
+      if (responeMessage !== undefined) {
+        client.say(
+          target,
+          `@${context["display-name"]} rolled ${responeMessage}`
+        );
+      }
+      return;
+    } else {
+      console.error(msg);
+      return;
     }
-    return;
-  } else if (msg.startsWith("!roll")) {
-    console.error(msg);
   }
+  return;
 }
 
 // Called every time the bot connects to Twitch chat
