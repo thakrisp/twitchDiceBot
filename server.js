@@ -57,4 +57,8 @@ function onMessageHandler(target, context, msg, self) {
 // Called every time the bot connects to Twitch chat
 function onConnectedHandler(addr, port) {
   console.log(`* Connected to ${addr}:${port}`);
+  client.say(
+    "thedirtyrollersrpg",
+    "Malmis has arrived PowerUpL thedir60D20Mimic PowerUpR !!!"
+  );
 }
