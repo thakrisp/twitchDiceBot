@@ -1,6 +1,8 @@
 require("dotenv").config();
 const tmi = require("tmi.js");
-const dice = require("./dice");
+`const { diceSides, readMessage } = require("./dice");
+
+const regex = /\s([1-9]{0,1})d(\d{1,3})/;
 
 // Define configuration options
 const opts = {
@@ -28,10 +30,7 @@ function onMessageHandler(target, context, msg, self) {
   msg = msg.toLowerCase();
 
   if (msg === "!dice") {
-    client.say(
-      target,
-      `The dice to choose from are ${dice.diceSides.join(", ")}`
-    );
+    client.say(target, `The dice to choose from are ${diceSides.join(", ")}`);
     return;
   }
 
@@ -46,10 +45,10 @@ function onMessageHandler(target, context, msg, self) {
   }
 
   if (msg.startsWith("!roll")) {
-    let messageMatch = msg.match(/\s([1-9]{0,1})d(\d{1,3})/);
+    let messageMatch = msg.match(regex);
 
     if (messageMatch !== null) {
-      let responeMessage = dice.readMessage(messageMatch[0]);
+      let responeMessage = readMessage(messageMatch[0]);
       console.log("server: " + responeMessage);
 
       if (responeMessage !== undefined) {
@@ -75,3 +74,5 @@ function onConnectedHandler(addr, port) {
     "Malmis has arrived PowerUpL thedir60D20Mimic PowerUpR !!!"
   );
 }
+
+module.exports = { regex };

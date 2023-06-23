@@ -1,6 +1,5 @@
 let readMessage = (message) => {
-  let args = message.split("d");
-  args = args.filter((e) => e !== "" && e !== " ");
+  let args = message.split("d").filter((e) => e !== "" && e !== " ");
 
   if (args.length === 1) {
     return responeMessage(1, args[0]);
@@ -52,5 +51,7 @@ let formatMessage = (rolls) => {
 
 let diceSides = [4, 6, 8, 10, 12, 20, 100];
 
-exports.readMessage = readMessage;
-exports.diceSides = diceSides;
+module.exports = {
+  readMessage,
+  diceSides,
+};

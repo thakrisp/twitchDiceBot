@@ -1,5 +1,28 @@
 import { describe, expect, test } from "vitest";
 import { readMessage } from "../dice";
+import { regex } from "../server";
+
+describe("validate regex", () => {
+  describe("Valid", () => {
+    test("2d10", () => {
+      expect("!roll 2d10".match(regex)).not.toEqual(null);
+    });
+    test("9d100", () => {
+      expect("!roll 9d100".match(regex)).not.toEqual(null);
+    });
+  });
+  describe("inValid", () => {
+    test("0d10", () => {
+      expect("!roll 0d10".match(regex)).toBeNull();
+    });
+    test("10d100", () => {
+      expect("!roll 10d100".match(regex)).toBeNull();
+    });
+    test("10d1000", () => {
+      expect("!roll 10d1000".match(regex)).toBeNull();
+    });
+  });
+});
 
 describe("Valid dice", () => {
   describe("Multiple dice", () => {
